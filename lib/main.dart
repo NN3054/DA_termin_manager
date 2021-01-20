@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'body_builder/header.dart';
-import 'body_builder/time.dart';
+import 'body_builder/body_parts/header.dart';
+import 'body_builder/body_parts/time.dart';
+import 'body_builder/body_parts/templates/container_pattern.dart';
+import './body_builder/body.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,8 +16,7 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           backgroundColor: const Color(0xff87e8eb),
           body:
-            Column(children: [Header(), Time()]
-            ),
+            Body(),
         ),
     );
   }
