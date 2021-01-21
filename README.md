@@ -1,6 +1,6 @@
 # termin_manager
 
-A new Flutter project.
+Frontend-code for Diplomarbeit-Project
 
 ## Getting Started
 
