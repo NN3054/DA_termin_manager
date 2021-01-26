@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'templates/container_pattern.dart';
+import 'templates/time_container_pattern.dart';
 
 class Time extends StatelessWidget {
   // variables for the width und heigth of a container
@@ -23,28 +23,28 @@ class Time extends StatelessWidget {
         Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ContainerPattern('07:00', _timeContWidth, _timeContHeigth),
-              ContainerPattern('07:30', _timeContWidth, _timeContHeigth),
-              ContainerPattern('08:00', _timeContWidth, _timeContHeigth),
-              ContainerPattern('08:30', _timeContWidth, _timeContHeigth),
-              ContainerPattern('09:00', _timeContWidth, _timeContHeigth),
-              ContainerPattern('09:30', _timeContWidth, _timeContHeigth),
-              ContainerPattern('10:00', _timeContWidth, _timeContHeigth),
-              ContainerPattern('10:30', _timeContWidth, _timeContHeigth),
-              ContainerPattern('11:00', _timeContWidth, _timeContHeigth),
-              ContainerPattern('11:30', _timeContWidth, _timeContHeigth),
-              ContainerPattern('12:00', _timeContWidth, _timeContHeigth),
-              ContainerPattern('12:30', _timeContWidth, _timeContHeigth),
-              ContainerPattern('13:00', _timeContWidth, _timeContHeigth),
-              ContainerPattern('13:30', _timeContWidth, _timeContHeigth),
-              ContainerPattern('14:00', _timeContWidth, _timeContHeigth),
-              ContainerPattern('14:30', _timeContWidth, _timeContHeigth),
-              ContainerPattern('15:00', _timeContWidth, _timeContHeigth),
-              ContainerPattern('15:30', _timeContWidth, _timeContHeigth),
-              ContainerPattern('16:00', _timeContWidth, _timeContHeigth),
-              ContainerPattern('16:30', _timeContWidth, _timeContHeigth),
-              ContainerPattern('17:00', _timeContWidth, _timeContHeigth),
-              ContainerPattern('17:30', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('07:00', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('07:30', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('08:00', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('08:30', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('09:00', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('09:30', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('10:00', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('10:30', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('11:00', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('11:30', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('12:00', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('12:30', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('13:00', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('13:30', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('14:00', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('14:30', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('15:00', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('15:30', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('16:00', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('16:30', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('17:00', _timeContWidth, _timeContHeigth),
+              TimeContainerPattern('17:30', _timeContWidth, _timeContHeigth),
             ],
         ),
     );

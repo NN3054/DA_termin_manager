@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
-import './templates/container_pattern.dart';
+import './templates/time_container_pattern.dart';
 
 class Header extends StatelessWidget {
   //Containers on top
@@ -35,11 +35,11 @@ class Header extends StatelessWidget {
         child: Row(
           children: <Widget>[
             _containerZeit,
-            ContainerPattern('Mon', 65, 40),
-            ContainerPattern('Die', 65, 40),
-            ContainerPattern('Mit', 65, 40),
-            ContainerPattern('Don', 65, 40),
-            ContainerPattern('Fri', 65, 40),
+            TimeContainerPattern('Mon', 65, 40),
+            TimeContainerPattern('Die', 65, 40),
+            TimeContainerPattern('Mit', 65, 40),
+            TimeContainerPattern('Don', 65, 40),
+            TimeContainerPattern('Fri', 65, 40),
           ],
         ),
       );

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 // standard container which takes arguments for textinput, colorinput, check if sizeinput is passed -> if yes overwrite default
-class ContainerPattern extends StatelessWidget {
+class TimeContainerPattern extends StatelessWidget {
   final String _containerText;
   final double _contWidth;
   final double _contHeight;
 
-  const ContainerPattern(this._containerText, this._contWidth, this._contHeight);
+
+
+  const TimeContainerPattern(this._containerText, this._contWidth, this._contHeight);
 
   @override
   Widget build(BuildContext context) {
