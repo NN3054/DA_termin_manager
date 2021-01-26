@@ -7,7 +7,7 @@ class Header extends StatelessWidget {
   //Containers on top
   final Container _containerZeit = Container(
       width: 65,
-      height: 40,
+      height: 30,
       margin: EdgeInsets.only(left: 2),
       padding: EdgeInsets.only(top: 2),
       decoration: BoxDecoration(
@@ -35,11 +35,11 @@ class Header extends StatelessWidget {
         child: Row(
           children: <Widget>[
             _containerZeit,
-            TimeContainerPattern('Mon', 65, 40),
-            TimeContainerPattern('Die', 65, 40),
-            TimeContainerPattern('Mit', 65, 40),
-            TimeContainerPattern('Don', 65, 40),
-            TimeContainerPattern('Fri', 65, 40),
+            TimeContainerPattern('Mon', 65, 30),
+            TimeContainerPattern('Die', 65, 30),
+            TimeContainerPattern('Mit', 65, 30),
+            TimeContainerPattern('Don', 65, 30),
+            TimeContainerPattern('Fri', 65, 30),
           ],
         ),
       );
