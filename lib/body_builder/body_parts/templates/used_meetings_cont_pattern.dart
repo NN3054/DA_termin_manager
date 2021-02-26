@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class UsedMeetingsPattern extends StatelessWidget {
   final double _contHeight = 30;
   final double _contWidth = 65;
-
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(
