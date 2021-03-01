@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:termin_manager/HomeScreen.dart';
 
-class CheckList extends StatelessWidget {
+class ExistingCustomer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'avenir'),
-      home: checkList(),
+      home: existingCustomer(),
     );
   }
 }
 
-class checkList extends StatefulWidget {
+class existingCustomer extends StatefulWidget {
   @override
-  _checkListState createState() => _checkListState();
+  _existingCustomerState createState() => _existingCustomerState();
 }
 
-class _checkListState extends State<checkList> {
+class _existingCustomerState extends State<existingCustomer> {
 
   bool checked = false;
   List<int> selectedList = [];
@@ -29,7 +29,7 @@ class _checkListState extends State<checkList> {
         centerTitle: true,
         backgroundColor: Color(0xff34ebb1),
         elevation: 0,
-        title: Text("Neue Checkliste", style: TextStyle(
+        title: Text("Bestehende Kunden", style: TextStyle(
             fontSize: 25
         ),
         ),

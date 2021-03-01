@@ -1,10 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:termin_manager/CheckList.dart';
-import 'package:termin_manager/NewTask.dart';
-import 'package:termin_manager/NewNote.dart';
-
+import 'package:termin_manager/ExistingCustomer.dart';
+import 'package:termin_manager/NewMeeting.dart';
+import 'package:termin_manager/NewCustomer.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -26,6 +26,8 @@ class _homeScreenState extends State<homeScreen> {
   String filterType = "heute";
   String taskPop = "close";
   DateTime today = new DateTime.now();
+  bool _isClosed = false;
+
   var monthNames = [
     "Januar",
     "Februar",
@@ -130,7 +132,7 @@ class _homeScreenState extends State<homeScreen> {
                   ? TableCalendar(
                       calendarController: ctrlr,
                       startingDayOfWeek: StartingDayOfWeek.monday,
-                      initialCalendarFormat: CalendarFormat.week,
+                      initialCalendarFormat: CalendarFormat.month,
                     )
                   : Container(),
               Expanded(
@@ -154,12 +156,15 @@ class _homeScreenState extends State<homeScreen> {
                           ],
                         ),
                       ),
-                      taskWidget(
-                          Color(0xff328fa8), "Max Mustermann", "9:00 - 9:30"),
-                      taskWidget(
-                          Color(0xff328fa8), "Nils Naumann", "9:00 - 9:30"),
-                      taskWidget(
-                          Color(0xff328fa8), "Frau Musterfrau", "9:00 - 9:30"),
+                          taskWidget(Color(0xff328fa8), "Max Mustermann",
+                              "9:00 - 9:30"),
+
+                          taskWidget(Color(0xff328fa8), "Nils Naumann",
+                              "9:30 - 10:00"),
+                      !_isClosed
+                          ? taskWidget(Color(0xff328fa8), "Frau Musterfrau",
+                          "10:00 - 11:00")
+                          : Container(),
                     ],
                   ),
                 ),
@@ -229,11 +234,10 @@ class _homeScreenState extends State<homeScreen> {
                       bottom: 25,
                       left: 0,
                       right: 0,
-                      child: InkWell(
-                        onTap: openTaskPop,
-                        child: Container(
-                          height: 80,
-                          width: 80,
+                      child: SizedBox(
+                        height: 80,
+                        width: 80,
+                        child: DecoratedBox(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                                 begin: Alignment.topRight,
@@ -241,11 +245,17 @@ class _homeScreenState extends State<homeScreen> {
                                 colors: [Colors.black, Color(0xff328fa8)]),
                             shape: BoxShape.circle,
                           ),
-                          child: Center(
-                            child: Text(
-                              "+",
-                              style:
-                                  TextStyle(fontSize: 40, color: Colors.white),
+                          child: InkWell(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(200)),
+                            highlightColor: Colors.blue,
+                            onTap: openTaskPop,
+                            child: Center(
+                              child: Text(
+                                "+",
+                                style: TextStyle(
+                                    fontSize: 40, color: Colors.white),
+                              ),
                             ),
                           ),
                         ),
@@ -253,81 +263,91 @@ class _homeScreenState extends State<homeScreen> {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
           Container(
-            child: (taskPop == "open")?Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.black.withOpacity(0.3),
-              child: Center(
-                child: InkWell(
-                  onTap: closeTaskPop,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Colors.white
-                    ),
-                    height: MediaQuery.of(context).size.height*0.3,
-                    width: MediaQuery.of(context).size.width*0.7,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(height: 1,),
-                        InkWell(
-                          onTap: openNewTask,
+              child: (taskPop == "open")
+                  ? Container(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.black.withOpacity(0.3),
+                      child: Center(
+                        child: InkWell(
+                          onTap: closeTaskPop,
                           child: Container(
-                            child: Text("Neuer Termin", style: TextStyle(fontSize: 18),),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                color: Colors.white),
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SizedBox(
+                                  height: 1,
+                                ),
+                                InkWell(
+                                  onTap: openNewMeeting,
+                                  child: Container(
+                                    child: Text(
+                                      "Neuer Termin",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 1,
+                                  margin: EdgeInsets.symmetric(horizontal: 30),
+                                  color: Colors.black.withOpacity(0.2),
+                                ),
+                                InkWell(
+                                  onTap: openNewNote,
+                                  child: Container(
+                                    child: Text(
+                                      "Neuer Kunde",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 1,
+                                  margin: EdgeInsets.symmetric(horizontal: 30),
+                                  color: Colors.black.withOpacity(0.2),
+                                ),
+                                InkWell(
+                                  onTap: openNewCheckList,
+                                  child: Container(
+                                    child: Text(
+                                      "Bestehende Kunden",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 1,
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                        Container(
-                          height: 1,
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          color: Colors.black.withOpacity(0.2),
-                        ),
-                        InkWell(
-                          onTap: openNewNote,
-                          child: Container(
-                            child: Text("Add Quick Note", style: TextStyle(fontSize: 18),),
-                          ),
-                        ),
-                        Container(
-                          height: 1,
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          color: Colors.black.withOpacity(0.2),
-                        ),
-                        InkWell(
-                          onTap: openNewCheckList,
-                          child: Container(
-                            child: Text("Add Checklist", style: TextStyle(fontSize: 18),),
-                          ),
-                        ),
-                        SizedBox(height: 1,)
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ):Container()
-          ),
+                      ),
+                    )
+                  : Container()),
         ],
       ),
     );
   }
 
-  openTaskPop(){
+  openTaskPop() {
     taskPop = "open";
-    setState(() {
-
-    });
+    setState(() {});
   }
 
-  closeTaskPop(){
+  closeTaskPop() {
     taskPop = "close";
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   changeFilter(String filter) {
@@ -398,20 +418,25 @@ class _homeScreenState extends State<homeScreen> {
           caption: "Löschen",
           color: Colors.red.withOpacity(0.7),
           icon: Icons.delete,
-          onTap: () {},
+          onTap: () {
+            setState(() {
+              _isClosed = true;
+            });
+          },
         ),
       ],
     );
   }
 
-  openNewTask(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => NewTask()));
+  openNewMeeting() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => newMeeting()));
   }
-  
-  openNewNote(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => NewNote()));
+
+  openNewNote() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => NewCustomer()));
   }
-  openNewCheckList(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CheckList()));
+
+  openNewCheckList() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ExistingCustomer()));
   }
 }
