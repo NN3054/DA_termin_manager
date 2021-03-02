@@ -27,6 +27,7 @@ class _homeScreenState extends State<homeScreen> {
   String taskPop = "close";
   DateTime today = new DateTime.now();
   bool _isClosed = false;
+  List meetings = []; // here meeting widgets
 
   var monthNames = [
     "Januar",
@@ -156,14 +157,13 @@ class _homeScreenState extends State<homeScreen> {
                           ],
                         ),
                       ),
-                          taskWidget(Color(0xff328fa8), "Max Mustermann",
-                              "9:00 - 9:30"),
-
-                          taskWidget(Color(0xff328fa8), "Nils Naumann",
-                              "9:30 - 10:00"),
+                      taskWidget(
+                          Color(0xff328fa8), "Max Mustermann", "9:00 - 9:30"),
+                      taskWidget(
+                          Color(0xff328fa8), "Nils Naumann", "9:30 - 10:00"),
                       !_isClosed
                           ? taskWidget(Color(0xff328fa8), "Frau Musterfrau",
-                          "10:00 - 11:00")
+                              "10:00 - 11:00")
                           : Container(),
                     ],
                   ),
@@ -429,14 +429,17 @@ class _homeScreenState extends State<homeScreen> {
   }
 
   openNewMeeting() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => newMeeting()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => newMeeting()));
   }
 
   openNewNote() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => NewCustomer()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => NewCustomer()));
   }
 
   openNewCheckList() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ExistingCustomer()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ExistingCustomer()));
   }
 }

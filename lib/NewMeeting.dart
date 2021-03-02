@@ -53,21 +53,25 @@ class _newMeetingState extends State<newMeeting> {
 
   // must implement IOS-Datepicker for OS-Switch
   Future<Null> selectDate(BuildContext context) async {
-    DateTime _date = DateTime.now();
+    DateTime date = DateTime.now();
+    var dateString;
 
     final DateTime pickedDate = await showDatePicker(
         context: context,
-        initialDate: _date,
+        initialDate: date,
         firstDate: DateTime(1970),
         lastDate: DateTime(2100),
         helpText: 'Datum auswählen',
         confirmText: 'Bestätigen',
         cancelText: 'Abbrechen');
 
-    if (pickedDate != null && pickedDate != _date) {
+    if (pickedDate != null && pickedDate != date) {
       setState(() {
-        _date = pickedDate;
-        print(_date.toString());
+        date = pickedDate;
+        dateString = date.toString();
+        print(dateString);
+
+        return dateString;
       });
     }
   }
@@ -142,8 +146,7 @@ class _newMeetingState extends State<newMeeting> {
                     Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(20)),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                           color: Colors.green.withOpacity(0.2)),
                       child: Center(
                         child: InkWell(
@@ -155,7 +158,8 @@ class _newMeetingState extends State<newMeeting> {
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
-                      ),),
+                      ),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -241,7 +245,7 @@ class _newMeetingState extends State<newMeeting> {
                             child: InkWell(
                               onTap: () {
                                 print(
-                                    "Termin: ${inputControllerBehandlungsart.text}, hinzugefügt ");
+                                    "Termin: ${inputControllerBehandlungsart.text}, hinzugefügt, Daten:  Datum: Startzeit: $picked_start Endzeit:$picked_end ");
                               },
                               child: Center(
                                 child: Text(
