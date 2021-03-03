@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'HomeScreen.dart';
+import '../HomeScreen.dart';
 
 class NewCustomer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'avenir'
-      ),
-      home:newCustomer()
-    );
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(fontFamily: 'avenir'),
+        home: newCustomer());
   }
 }
 
@@ -25,7 +22,6 @@ class _newCustomerState extends State<newCustomer> {
   final inputControllerNummer = TextEditingController();
   final inputControllerEmail = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,16 +30,18 @@ class _newCustomerState extends State<newCustomer> {
         centerTitle: true,
         backgroundColor: Color(0xff34ebb1),
         elevation: 0,
-        title: Text("Kundendaten", style: TextStyle(
-            fontSize: 25
-        ),
+        title: Text(
+          "Kundendaten",
+          style: TextStyle(fontSize: 25),
         ),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
             color: Colors.white,
           ),
-          onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
         ),
       ),
@@ -70,24 +68,24 @@ class _newCustomerState extends State<newCustomer> {
                 color: Colors.white,
               ),
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height*0.85,
+              height: MediaQuery.of(context).size.height * 0.85,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(height: 25,),
-                    SizedBox(height: 15,),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
                     Container(
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
                         controller: inputControllerVorname,
                         decoration: InputDecoration(
-                            hintText: "Vorname",
-                            border: InputBorder.none
-                        ),
-                        style: TextStyle(
-                            fontSize: 18
-                        ),
+                            hintText: "Vorname", border: InputBorder.none),
+                        style: TextStyle(fontSize: 18),
                       ),
                     ),
                     SizedBox(
@@ -99,12 +97,8 @@ class _newCustomerState extends State<newCustomer> {
                       child: TextField(
                         controller: inputControllerNachname,
                         decoration: InputDecoration(
-                            hintText: "Nachname",
-                            border: InputBorder.none
-                        ),
-                        style: TextStyle(
-                            fontSize: 18
-                        ),
+                            hintText: "Nachname", border: InputBorder.none),
+                        style: TextStyle(fontSize: 18),
                       ),
                     ),
                     SizedBox(
@@ -117,11 +111,8 @@ class _newCustomerState extends State<newCustomer> {
                         controller: inputControllerNummer,
                         decoration: InputDecoration(
                             hintText: "Telefonnummer",
-                            border: InputBorder.none
-                        ),
-                        style: TextStyle(
-                            fontSize: 18
-                        ),
+                            border: InputBorder.none),
+                        style: TextStyle(fontSize: 18),
                       ),
                     ),
                     SizedBox(
@@ -133,12 +124,8 @@ class _newCustomerState extends State<newCustomer> {
                       child: TextField(
                         controller: inputControllerEmail,
                         decoration: InputDecoration(
-                            hintText: "E-Mail",
-                            border: InputBorder.none
-                        ),
-                        style: TextStyle(
-                            fontSize: 18
-                        ),
+                            hintText: "E-Mail", border: InputBorder.none),
+                        style: TextStyle(fontSize: 18),
                       ),
                     ),
                     Container(
@@ -146,24 +133,33 @@ class _newCustomerState extends State<newCustomer> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 20,),
-                          SizedBox(height: 20,),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 15),
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
                               color: Color(0xff34ebb1),
                             ),
                             child: InkWell(
-                              onTap: (){
-                                print("Kunde hinzugefügt. Vorname: ${inputControllerVorname.text}, Nachname: ${inputControllerNachname.text}, Telefonnummer ${inputControllerNummer.text}, Email: ${inputControllerEmail.text}");
+                              onTap: () {
+                                print(
+                                    "Kunde hinzugefügt. Vorname: ${inputControllerVorname.text}, Nachname: ${inputControllerNachname.text}, Telefonnummer ${inputControllerNummer.text}, Email: ${inputControllerEmail.text}");
                               },
                               child: Center(
-                                child: Text("Kunde hinzufügen", style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),),
+                                child: Text(
+                                  "Kunde hinzufügen",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ),
                             ),
                           ),

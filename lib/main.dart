@@ -34,7 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("asset/img/logo_naumann.png"),
-            )
-          )
-        )
+            ),
+          ),
+        ),
       ),
     );
   }

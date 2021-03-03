@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:termin_manager/HomeScreen.dart';
+import 'package:termin_manager/MeetingWidget.dart';
+import 'package:termin_manager/database_helper.dart';
+import 'package:termin_manager/models/meeting.dart';
 
 class NewMeeting extends StatelessWidget {
   @override
@@ -22,6 +25,8 @@ class _newMeetingState extends State<newMeeting> {
   TimeOfDay picked_start;
   TimeOfDay picked_end;
   final inputControllerBehandlungsart = TextEditingController();
+  final inputControllerVorname = TextEditingController();
+  final inputControllerNachname = TextEditingController();
 
   Future<Null> selectStartTime(BuildContext context) async {
     picked_start = await showTimePicker(
@@ -133,6 +138,55 @@ class _newMeetingState extends State<newMeeting> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
+                        onSubmitted: (vorname) async {
+                          print("Vorname: $vorname");
+
+                          if(vorname != "") {
+                            DatabaseHelper _dbHelper = DatabaseHelper();
+
+                            Meeting _newMeeting = Meeting(
+                              vorname: vorname
+                            );
+
+                            await _dbHelper.insertMeeting(_newMeeting);
+
+                            print("Erstellt");
+                          }
+
+
+                        },
+                        decoration: InputDecoration(
+                            hintText: "Vorname eingeben",
+                            border: InputBorder.none),
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      color: Colors.grey.withOpacity(0.2),
+                      child: TextField(
+                        onSubmitted: (nachname){
+                          print("Nachname: $nachname");
+                        },
+                        decoration: InputDecoration(
+                            hintText: "Nachname eingeben",
+                            border: InputBorder.none),
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      color: Colors.grey.withOpacity(0.2),
+                      child: TextField(
+                        onSubmitted: (behandlungsart){
+                          print("Behandlungsart: $behandlungsart");
+                        },
                         controller: inputControllerBehandlungsart,
                         decoration: InputDecoration(
                             hintText: "Behandlungsart eingeben",
