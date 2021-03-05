@@ -159,12 +159,17 @@ class _homeScreenState extends State<homeScreen> {
                     ),
                     Expanded(
                       child: FutureBuilder(
+                        initialData: [],
                         future: _dbHelper.getMeetings(),
-                        builder: (context, snapshot){
+                        builder: (context, snapshot) {
                           return ListView.builder(
                               itemCount: snapshot.data.length,
-                              itemBuilder: (context, index){
-                                return MeetingWidget();
+                              itemBuilder: (context, index) {
+                                return MeetingWidget(
+                                  vorname: snapshot.data[index].vorname,
+                                  nachname: snapshot.data[index].nachname,
+                                  behandlungsart: snapshot.data[index].behandlungsart,
+                                );
                               });
                         },
                       ),
@@ -340,6 +345,8 @@ class _homeScreenState extends State<homeScreen> {
     );
   }
 
+  // Functions
+
   openTaskPop() {
     taskPop = "open";
     setState(() {});
@@ -357,7 +364,10 @@ class _homeScreenState extends State<homeScreen> {
 
   openNewMeeting() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => newMeeting()));
+        context, MaterialPageRoute(builder: (context) => newMeeting()),
+    ).then((value) {
+      setState(() {});
+    });
   }
 
   openNewNote() {

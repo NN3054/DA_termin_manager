@@ -3,11 +3,9 @@ import 'package:sqflite/sqflite.dart';
 
 import 'models/meeting.dart';
 
-class DatabaseHelper{
-
+class DatabaseHelper {
   Future<Database> database() async {
     return openDatabase(
-
       join(await getDatabasesPath(), 'meeting.db'),
       onCreate: (db, version) {
         // Run the CREATE TABLE statement on the database.
@@ -22,17 +20,20 @@ class DatabaseHelper{
   }
 
   Future<void> insertMeeting(Meeting meeting) async {
-
     Database _db = await database();
-    await _db.insert('meetings', meeting.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+    await _db.insert('meetings', meeting.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<List<Meeting>> getMeetings() async {
     Database _db = await database();
     List<Map<String, dynamic>> meetingMap = await _db.query('meetings');
-    return List.generate(meetingMap.length, (index){
-      return Meeting(id: meetingMap[index]['id'], vorname: meetingMap[index]['vorname'], nachname: meetingMap[index]['nachname'], behandlungsart: meetingMap[index]['behandlungsart']);
+    return List.generate(meetingMap.length, (index) {
+      return Meeting(
+          id: meetingMap[index]['id'],
+          vorname: meetingMap[index]['vorname'],
+          nachname: meetingMap[index]['nachname'],
+          behandlungsart: meetingMap[index]['behandlungsart']);
     });
   }
-
 }

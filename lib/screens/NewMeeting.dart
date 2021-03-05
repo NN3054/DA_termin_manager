@@ -28,6 +28,10 @@ class _newMeetingState extends State<newMeeting> {
   final inputControllerVorname = TextEditingController();
   final inputControllerNachname = TextEditingController();
 
+  String vorname_submitted;
+  String nachname_submitted;
+  String behandlungsart_submitted;
+
   Future<Null> selectStartTime(BuildContext context) async {
     picked_start = await showTimePicker(
       context: context,
@@ -138,22 +142,12 @@ class _newMeetingState extends State<newMeeting> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
+                        controller: inputControllerVorname,
                         onSubmitted: (vorname) async {
+
+                          vorname_submitted = vorname;
+
                           print("Vorname: $vorname");
-
-                          if(vorname != "") {
-                            DatabaseHelper _dbHelper = DatabaseHelper();
-
-                            Meeting _newMeeting = Meeting(
-                              vorname: vorname
-                            );
-
-                            await _dbHelper.insertMeeting(_newMeeting);
-
-                            print("Erstellt");
-                          }
-
-
                         },
                         decoration: InputDecoration(
                             hintText: "Vorname eingeben",
@@ -168,7 +162,11 @@ class _newMeetingState extends State<newMeeting> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
-                        onSubmitted: (nachname){
+                        controller: inputControllerNachname,
+                        onSubmitted: (nachname) {
+
+                          nachname_submitted = nachname;
+
                           print("Nachname: $nachname");
                         },
                         decoration: InputDecoration(
@@ -184,7 +182,10 @@ class _newMeetingState extends State<newMeeting> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
-                        onSubmitted: (behandlungsart){
+                        onSubmitted: (behandlungsart) {
+
+                          behandlungsart_submitted = behandlungsart;
+
                           print("Behandlungsart: $behandlungsart");
                         },
                         controller: inputControllerBehandlungsart,
@@ -297,9 +298,17 @@ class _newMeetingState extends State<newMeeting> {
                               color: Color(0xff34ebb1),
                             ),
                             child: InkWell(
-                              onTap: () {
-                                print(
-                                    "Termin: ${inputControllerBehandlungsart.text}, hinzugefügt, Daten:  Datum: Startzeit: $picked_start Endzeit:$picked_end ");
+                              onTap: () async {
+                                if (inputControllerVorname.text != "") {
+                                  DatabaseHelper _dbHelper = DatabaseHelper();
+
+                                  Meeting _newMeeting = Meeting(vorname: inputControllerVorname.text, nachname: inputControllerNachname.text, behandlungsart: inputControllerBehandlungsart.text);
+
+                                  await _dbHelper.insertMeeting(_newMeeting);
+
+                                  print("Erstellt");
+                                }
+                                print("Termin: ${inputControllerBehandlungsart.text}, hinzugefügt, Daten:  Datum: Startzeit: $picked_start Endzeit:$picked_end ");
                               },
                               child: Center(
                                 child: Text(
@@ -314,7 +323,7 @@ class _newMeetingState extends State<newMeeting> {
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

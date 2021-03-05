@@ -26,10 +26,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
-  void initState(){
-
+  void initState() {
     Timer(Duration(seconds: 3), openHomescreen);
     super.initState();
   }
@@ -49,8 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void openHomescreen()
-  {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+  void openHomescreen() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 }

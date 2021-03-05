@@ -25,7 +25,7 @@ class MeetingWidget extends StatelessWidget {
             offset: Offset(0, 9),
             blurRadius: 20,
             spreadRadius: 1,
-          )
+          ),
         ]),
         child: Row(
           children: [
@@ -44,10 +44,12 @@ class MeetingWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  vorname + nachname ?? "Leer",
+                  "$vorname $nachname" ?? "Leer",
                   style: TextStyle(color: Colors.black, fontSize: 18),
                 ),
-                Text("09:30 - 10:00" + " - " + behandlungsart ?? "Leer 2 " + " Leer 3", style: TextStyle(color: Colors.grey, fontSize: 18))
+                Text(
+                    "09:30 - 10:00 $behandlungsart" ?? "Leer 2",
+                    style: TextStyle(color: Colors.grey, fontSize: 18))
               ],
             ),
             Expanded(
