@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:termin_manager/HomeScreen.dart';
-import 'package:termin_manager/MeetingWidget.dart';
+import 'file:///C:/Users/Nils/Documents/Diplomarbeit/termin_manager/lib/models/MeetingWidget.dart';
 import 'package:termin_manager/database_helper.dart';
 import 'package:termin_manager/models/meeting.dart';
 
 class NewMeeting extends StatelessWidget {
+
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,6 +19,10 @@ class NewMeeting extends StatelessWidget {
 }
 
 class newMeeting extends StatefulWidget {
+
+  final Meeting meeting;
+  @required newMeeting({this.meeting});
+
   @override
   _newMeetingState createState() => _newMeetingState();
 }
@@ -24,6 +31,7 @@ class _newMeetingState extends State<newMeeting> {
   TimeOfDay _time = TimeOfDay.now();
   TimeOfDay picked_start;
   TimeOfDay picked_end;
+
   final inputControllerBehandlungsart = TextEditingController();
   final inputControllerVorname = TextEditingController();
   final inputControllerNachname = TextEditingController();
@@ -85,6 +93,20 @@ class _newMeetingState extends State<newMeeting> {
     }
   }
 
+
+  String _behandlungsart = "";
+  String _vorname = "";
+  String _nachname = "";
+
+  @override
+  void initState(){
+    if(widget.meeting != null){
+      _behandlungsart = widget.meeting.behandlungsart;
+      _nachname = widget.meeting.nachname;
+      _vorname = widget.meeting.vorname;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,11 +164,9 @@ class _newMeetingState extends State<newMeeting> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
-                        controller: inputControllerVorname,
+                        controller: inputControllerVorname..text = _vorname,
                         onSubmitted: (vorname) async {
-
                           vorname_submitted = vorname;
-
                           print("Vorname: $vorname");
                         },
                         decoration: InputDecoration(
@@ -162,7 +182,7 @@ class _newMeetingState extends State<newMeeting> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
-                        controller: inputControllerNachname,
+                        controller: inputControllerNachname..text = _nachname,
                         onSubmitted: (nachname) {
 
                           nachname_submitted = nachname;
@@ -188,7 +208,7 @@ class _newMeetingState extends State<newMeeting> {
 
                           print("Behandlungsart: $behandlungsart");
                         },
-                        controller: inputControllerBehandlungsart,
+                        controller: inputControllerBehandlungsart..text = _behandlungsart,
                         decoration: InputDecoration(
                             hintText: "Behandlungsart eingeben",
                             border: InputBorder.none),
@@ -299,14 +319,20 @@ class _newMeetingState extends State<newMeeting> {
                             ),
                             child: InkWell(
                               onTap: () async {
-                                if (inputControllerVorname.text != "") {
-                                  DatabaseHelper _dbHelper = DatabaseHelper();
-
-                                  Meeting _newMeeting = Meeting(vorname: inputControllerVorname.text, nachname: inputControllerNachname.text, behandlungsart: inputControllerBehandlungsart.text);
-
-                                  await _dbHelper.insertMeeting(_newMeeting);
-
-                                  print("Erstellt");
+                                if (vorname_submitted != "" && nachname_submitted != "" && behandlungsart_submitted != "") {
+                                  if(widget.meeting == null) {
+                                    DatabaseHelper _dbHelper = DatabaseHelper();
+                                    Meeting _newMeeting = Meeting(
+                                        vorname: inputControllerVorname.text,
+                                        nachname: inputControllerNachname.text,
+                                        behandlungsart: inputControllerBehandlungsart
+                                            .text);
+                                    await _dbHelper.insertMeeting(_newMeeting);
+                                    print("Erstellt");
+                                  }
+                                  else {
+                                    print("Update the existing task");
+                                  }
                                 }
                                 print("Termin: ${inputControllerBehandlungsart.text}, hinzugefügt, Daten:  Datum: Startzeit: $picked_start Endzeit:$picked_end ");
                               },

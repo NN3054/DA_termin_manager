@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:termin_manager/screens/NewMeeting.dart';
 
 class MeetingWidget extends StatelessWidget {
   final String vorname;
@@ -64,12 +65,6 @@ class MeetingWidget extends StatelessWidget {
         ),
       ),
       secondaryActions: [
-        IconSlideAction(
-          caption: "Ändern",
-          color: Colors.white,
-          icon: Icons.edit,
-          onTap: () {},
-        ),
         IconSlideAction(
           caption: "Löschen",
           color: Colors.red.withOpacity(0.7),
