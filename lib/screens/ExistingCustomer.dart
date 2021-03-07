@@ -1,6 +1,8 @@
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:termin_manager/HomeScreen.dart';
+import 'package:termin_manager/database_helper.dart';
 
 class ExistingCustomer extends StatelessWidget {
   @override
@@ -31,6 +33,8 @@ class _existingCustomerState extends State<existingCustomer> {
       );
     });
   }
+
+  DatabaseHelper _dbHelper = DatabaseHelper();
 
   @override
   Widget build(BuildContext context) {

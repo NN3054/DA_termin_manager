@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:termin_manager/screens/NewMeeting.dart';
 
+import '../database_helper.dart';
+
 class MeetingWidget extends StatelessWidget {
   final String vorname;
   final String nachname;
   final String behandlungsart;
 
+  DatabaseHelper _dbHelper = DatabaseHelper();
+
   MeetingWidget({this.vorname, this.nachname, this.behandlungsart});
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.3,
-      child: Container(
+    return Container(
         height: 80,
         margin: EdgeInsets.symmetric(
           horizontal: 20,
@@ -63,15 +64,6 @@ class MeetingWidget extends StatelessWidget {
             )
           ],
         ),
-      ),
-      secondaryActions: [
-        IconSlideAction(
-          caption: "Löschen",
-          color: Colors.red.withOpacity(0.7),
-          icon: Icons.delete,
-          onTap: () {},
-        ),
-      ],
     );
   }
 }

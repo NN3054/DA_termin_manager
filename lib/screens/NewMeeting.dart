@@ -28,6 +28,10 @@ class newMeeting extends StatefulWidget {
 }
 
 class _newMeetingState extends State<newMeeting> {
+
+  DatabaseHelper _dbHelper = DatabaseHelper();
+
+
   TimeOfDay _time = TimeOfDay.now();
   TimeOfDay picked_start;
   TimeOfDay picked_end;
@@ -39,6 +43,8 @@ class _newMeetingState extends State<newMeeting> {
   String vorname_submitted;
   String nachname_submitted;
   String behandlungsart_submitted;
+
+  int meetingId = 0;
 
   Future<Null> selectStartTime(BuildContext context) async {
     picked_start = await showTimePicker(
@@ -321,17 +327,16 @@ class _newMeetingState extends State<newMeeting> {
                               onTap: () async {
                                 if (vorname_submitted != "" && nachname_submitted != "" && behandlungsart_submitted != "") {
                                   if(widget.meeting == null) {
-                                    DatabaseHelper _dbHelper = DatabaseHelper();
                                     Meeting _newMeeting = Meeting(
                                         vorname: inputControllerVorname.text,
                                         nachname: inputControllerNachname.text,
-                                        behandlungsart: inputControllerBehandlungsart
-                                            .text);
-                                    await _dbHelper.insertMeeting(_newMeeting);
-                                    print("Erstellt");
+                                        behandlungsart: inputControllerBehandlungsart.text);
+                                    meetingId = await _dbHelper.insertMeeting(_newMeeting);
+                                    print("Erstellt $meetingId");
                                   }
                                   else {
-                                    print("Update the existing task");
+                                   await _dbHelper.updateMeeting(meetingId, inputControllerVorname.text, inputControllerNachname.text, inputControllerBehandlungsart.text);
+                                   print("Task updated");
                                   }
                                 }
                                 print("Termin: ${inputControllerBehandlungsart.text}, hinzugefügt, Daten:  Datum: Startzeit: $picked_start Endzeit:$picked_end ");

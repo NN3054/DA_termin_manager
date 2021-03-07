@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:termin_manager/database_helper.dart';
+import 'package:termin_manager/models/customer.dart';
 import '../HomeScreen.dart';
 
 class NewCustomer extends StatelessWidget {
@@ -21,6 +23,12 @@ class _newCustomerState extends State<newCustomer> {
   final inputControllerNachname = TextEditingController();
   final inputControllerNummer = TextEditingController();
   final inputControllerEmail = TextEditingController();
+
+  String vorname;
+  String nachname;
+  String telefonnummer;
+  String email;
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +90,12 @@ class _newCustomerState extends State<newCustomer> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
+                        onSubmitted: (value){
+
+                          vorname = value;
+
+                        },
+
                         controller: inputControllerVorname,
                         decoration: InputDecoration(
                             hintText: "Vorname", border: InputBorder.none),
@@ -95,6 +109,12 @@ class _newCustomerState extends State<newCustomer> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
+
+                        onSubmitted: (value){
+
+                          nachname = value;
+
+                        },
                         controller: inputControllerNachname,
                         decoration: InputDecoration(
                             hintText: "Nachname", border: InputBorder.none),
@@ -108,6 +128,13 @@ class _newCustomerState extends State<newCustomer> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
+
+                        onSubmitted: (value){
+
+                          telefonnummer = value;
+
+                        },
+
                         controller: inputControllerNummer,
                         decoration: InputDecoration(
                             hintText: "Telefonnummer",
@@ -122,6 +149,13 @@ class _newCustomerState extends State<newCustomer> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
+
+                        onSubmitted: (value){
+
+                          email = value;
+
+                        },
+
                         controller: inputControllerEmail,
                         decoration: InputDecoration(
                             hintText: "E-Mail", border: InputBorder.none),
@@ -148,7 +182,25 @@ class _newCustomerState extends State<newCustomer> {
                               color: Color(0xff34ebb1),
                             ),
                             child: InkWell(
-                              onTap: () {
+                              onTap: () async {
+
+                                if(vorname != "" && nachname != ""){
+
+                                  DatabaseHelper _dbHelper = DatabaseHelper();
+                                  Customer _newCustomer = Customer(
+                                    vorname: inputControllerVorname.text,
+                                    nachname: inputControllerNachname.text,
+                                    telefonnummer: inputControllerNummer.text,
+                                    email: inputControllerEmail.text,
+                                  );
+                                  await _dbHelper.insertCustomer(_newCustomer);
+                                  print('Kunde hinzugefügt');
+                                }
+                                else {
+                                  print("fehler");
+                                }
+
+
                                 print(
                                     "Kunde hinzugefügt. Vorname: ${inputControllerVorname.text}, Nachname: ${inputControllerNachname.text}, Telefonnummer ${inputControllerNummer.text}, Email: ${inputControllerEmail.text}");
                               },

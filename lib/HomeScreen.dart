@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'file:///C:/Users/Nils/Documents/Diplomarbeit/termin_manager/lib/screens/ExistingCustomer.dart';
 import 'file:///C:/Users/Nils/Documents/Diplomarbeit/termin_manager/lib/screens/NewMeeting.dart';
@@ -29,6 +30,7 @@ class _homeScreenState extends State<homeScreen> {
   String taskPop = "close";
   DateTime today = new DateTime.now();
   bool _isClosed = false;
+
 
   DatabaseHelper _dbHelper = DatabaseHelper();
 
@@ -167,17 +169,23 @@ class _homeScreenState extends State<homeScreen> {
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-
                                   onTap: (){
                                     Navigator.push(
                                         context, MaterialPageRoute(builder: (context) => newMeeting(
                                       meeting: snapshot.data[index],
-                                    )));
+                                    )),
+                                    ).then((value) {
+                                      setState(() {
+                                      });
+                                    });
                                   },
-                                  child: MeetingWidget(
-                                    vorname: snapshot.data[index].vorname,
-                                    nachname: snapshot.data[index].nachname,
-                                    behandlungsart: snapshot.data[index].behandlungsart,
+                                  child: Dismissible(
+                                    key: Key("meetingWidget"),
+                                    child: MeetingWidget(
+                                      vorname: snapshot.data[index].vorname,
+                                      nachname: snapshot.data[index].nachname,
+                                      behandlungsart: snapshot.data[index].behandlungsart,
+                                    ),
                                   ),
                                 );
                               });
@@ -354,6 +362,7 @@ class _homeScreenState extends State<homeScreen> {
       ),
     );
   }
+
 
   // Functions
 
