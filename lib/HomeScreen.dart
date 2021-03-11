@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'file:///C:/Users/Nils/Documents/Diplomarbeit/termin_manager/lib/screens/ExistingCustomer.dart';
-import 'file:///C:/Users/Nils/Documents/Diplomarbeit/termin_manager/lib/screens/NewMeeting.dart';
-import 'file:///C:/Users/Nils/Documents/Diplomarbeit/termin_manager/lib/screens/NewCustomer.dart';
+import 'package:termin_manager/screens/NewMeeting.dart';
+import 'package:termin_manager/screens/NewCustomer.dart';
+import 'package:termin_manager/screens/ExistingCustomer.dart';
 import 'package:termin_manager/models/MeetingWidget.dart';
 import 'package:termin_manager/database_helper.dart';
-
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -30,7 +28,6 @@ class _homeScreenState extends State<homeScreen> {
   String taskPop = "close";
   DateTime today = new DateTime.now();
   bool _isClosed = false;
-
 
   DatabaseHelper _dbHelper = DatabaseHelper();
 
@@ -136,10 +133,10 @@ class _homeScreenState extends State<homeScreen> {
               ),
               (filterType == "woche")
                   ? TableCalendar(
-                calendarController: ctrlr,
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                initialCalendarFormat: CalendarFormat.month,
-              )
+                      calendarController: ctrlr,
+                      startingDayOfWeek: StartingDayOfWeek.monday,
+                      initialCalendarFormat: CalendarFormat.month,
+                    )
                   : Container(),
               Expanded(
                 child: Column(
@@ -169,14 +166,15 @@ class _homeScreenState extends State<homeScreen> {
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
+                                  onTap: () {
                                     Navigator.push(
-                                        context, MaterialPageRoute(builder: (context) => newMeeting(
-                                      meeting: snapshot.data[index],
-                                    )),
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => newMeeting(
+                                                meeting: snapshot.data[index],
+                                              )),
                                     ).then((value) {
-                                      setState(() {
-                                      });
+                                      setState(() {});
                                     });
                                   },
                                   child: Dismissible(
@@ -184,7 +182,8 @@ class _homeScreenState extends State<homeScreen> {
                                     child: MeetingWidget(
                                       vorname: snapshot.data[index].vorname,
                                       nachname: snapshot.data[index].nachname,
-                                      behandlungsart: snapshot.data[index].behandlungsart,
+                                      behandlungsart:
+                                          snapshot.data[index].behandlungsart,
                                     ),
                                   ),
                                 );
@@ -292,80 +291,78 @@ class _homeScreenState extends State<homeScreen> {
           Container(
               child: (taskPop == "open")
                   ? Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.black.withOpacity(0.3),
-                child: Center(
-                  child: InkWell(
-                    onTap: closeTaskPop,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white),
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(
-                            height: 1,
-                          ),
-                          InkWell(
-                            onTap: openNewMeeting,
-                            child: Container(
-                              child: Text(
-                                "Neuer Termin",
-                                style: TextStyle(fontSize: 18),
-                              ),
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.black.withOpacity(0.3),
+                      child: Center(
+                        child: InkWell(
+                          onTap: closeTaskPop,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                color: Colors.white),
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SizedBox(
+                                  height: 1,
+                                ),
+                                InkWell(
+                                  onTap: openNewMeeting,
+                                  child: Container(
+                                    child: Text(
+                                      "Neuer Termin",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 1,
+                                  margin: EdgeInsets.symmetric(horizontal: 30),
+                                  color: Colors.black.withOpacity(0.2),
+                                ),
+                                InkWell(
+                                  onTap: openNewNote,
+                                  child: Container(
+                                    child: Text(
+                                      "Neuer Kunde",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 1,
+                                  margin: EdgeInsets.symmetric(horizontal: 30),
+                                  color: Colors.black.withOpacity(0.2),
+                                ),
+                                InkWell(
+                                  onTap: openNewCheckList,
+                                  child: Container(
+                                    child: Text(
+                                      "Bestehende Kunden",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 1,
+                                )
+                              ],
                             ),
                           ),
-                          Container(
-                            height: 1,
-                            margin: EdgeInsets.symmetric(horizontal: 30),
-                            color: Colors.black.withOpacity(0.2),
-                          ),
-                          InkWell(
-                            onTap: openNewNote,
-                            child: Container(
-                              child: Text(
-                                "Neuer Kunde",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 1,
-                            margin: EdgeInsets.symmetric(horizontal: 30),
-                            color: Colors.black.withOpacity(0.2),
-                          ),
-                          InkWell(
-                            onTap: openNewCheckList,
-                            child: Container(
-                              child: Text(
-                                "Bestehende Kunden",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 1,
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              )
+                    )
                   : Container()),
         ],
       ),
     );
   }
 
-
   // Functions
-
   openTaskPop() {
     taskPop = "open";
     setState(() {});
@@ -383,7 +380,11 @@ class _homeScreenState extends State<homeScreen> {
 
   openNewMeeting() {
     Navigator.push(
-      context, MaterialPageRoute(builder: (context) => newMeeting(meeting: null,)),
+      context,
+      MaterialPageRoute(
+          builder: (context) => newMeeting(
+                meeting: null,
+              )),
     ).then((value) {
       setState(() {});
     });

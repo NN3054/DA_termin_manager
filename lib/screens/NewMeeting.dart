@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:termin_manager/HomeScreen.dart';
-import 'file:///C:/Users/Nils/Documents/Diplomarbeit/termin_manager/lib/models/MeetingWidget.dart';
+import 'package:termin_manager/models/MeetingWidget.dart';
 import 'package:termin_manager/database_helper.dart';
 import 'package:termin_manager/models/meeting.dart';
 
 class NewMeeting extends StatelessWidget {
-
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,18 +16,16 @@ class NewMeeting extends StatelessWidget {
 }
 
 class newMeeting extends StatefulWidget {
-
   final Meeting meeting;
-  @required newMeeting({this.meeting});
+  @required
+  newMeeting({this.meeting});
 
   @override
   _newMeetingState createState() => _newMeetingState();
 }
 
 class _newMeetingState extends State<newMeeting> {
-
   DatabaseHelper _dbHelper = DatabaseHelper();
-
 
   TimeOfDay _time = TimeOfDay.now();
   TimeOfDay picked_start;
@@ -99,14 +94,13 @@ class _newMeetingState extends State<newMeeting> {
     }
   }
 
-
   String _behandlungsart = "";
   String _vorname = "";
   String _nachname = "";
 
   @override
-  void initState(){
-    if(widget.meeting != null){
+  void initState() {
+    if (widget.meeting != null) {
       _behandlungsart = widget.meeting.behandlungsart;
       _nachname = widget.meeting.nachname;
       _vorname = widget.meeting.vorname;
@@ -190,7 +184,6 @@ class _newMeetingState extends State<newMeeting> {
                       child: TextField(
                         controller: inputControllerNachname..text = _nachname,
                         onSubmitted: (nachname) {
-
                           nachname_submitted = nachname;
 
                           print("Nachname: $nachname");
@@ -209,12 +202,12 @@ class _newMeetingState extends State<newMeeting> {
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
                         onSubmitted: (behandlungsart) {
-
                           behandlungsart_submitted = behandlungsart;
 
                           print("Behandlungsart: $behandlungsart");
                         },
-                        controller: inputControllerBehandlungsart..text = _behandlungsart,
+                        controller: inputControllerBehandlungsart
+                          ..text = _behandlungsart,
                         decoration: InputDecoration(
                             hintText: "Behandlungsart eingeben",
                             border: InputBorder.none),
@@ -325,21 +318,29 @@ class _newMeetingState extends State<newMeeting> {
                             ),
                             child: InkWell(
                               onTap: () async {
-                                if (vorname_submitted != "" && nachname_submitted != "" && behandlungsart_submitted != "") {
-                                  if(widget.meeting == null) {
+                                if (vorname_submitted != "" &&
+                                    nachname_submitted != "" &&
+                                    behandlungsart_submitted != "") {
+                                  if (widget.meeting == null) {
                                     Meeting _newMeeting = Meeting(
                                         vorname: inputControllerVorname.text,
                                         nachname: inputControllerNachname.text,
-                                        behandlungsart: inputControllerBehandlungsart.text);
-                                    meetingId = await _dbHelper.insertMeeting(_newMeeting);
+                                        behandlungsart:
+                                            inputControllerBehandlungsart.text);
+                                    meetingId = await _dbHelper
+                                        .insertMeeting(_newMeeting);
                                     print("Erstellt $meetingId");
-                                  }
-                                  else {
-                                   await _dbHelper.updateMeeting(meetingId, inputControllerVorname.text, inputControllerNachname.text, inputControllerBehandlungsart.text);
-                                   print("Task updated");
+                                  } else {
+                                    await _dbHelper.updateMeeting(
+                                        meetingId,
+                                        inputControllerVorname.text,
+                                        inputControllerNachname.text,
+                                        inputControllerBehandlungsart.text);
+                                    print("Task updated");
                                   }
                                 }
-                                print("Termin: ${inputControllerBehandlungsart.text}, hinzugefügt, Daten:  Datum: Startzeit: $picked_start Endzeit:$picked_end ");
+                                print(
+                                    "Termin: ${inputControllerBehandlungsart.text}, hinzugefügt, Daten:  Datum: Startzeit: $picked_start Endzeit:$picked_end ");
                               },
                               child: Center(
                                 child: Text(
