@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:termin_manager/screens/NewMeeting.dart';
 import 'package:termin_manager/screens/NewCustomer.dart';
@@ -46,6 +47,7 @@ class _homeScreenState extends State<homeScreen> {
     "Dezember"
   ];
 
+  List<String> recipients = ["436503068488"];
   CalendarController ctrlr = new CalendarController();
 
   @override
@@ -178,7 +180,7 @@ class _homeScreenState extends State<homeScreen> {
                                     });
                                   },
                                   child: Dismissible(
-                                    key: Key("meetingWidget"),
+                                    key: UniqueKey(),
                                     child: MeetingWidget(
                                       vorname: snapshot.data[index].vorname,
                                       nachname: snapshot.data[index].nachname,
@@ -209,45 +211,37 @@ class _homeScreenState extends State<homeScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Container(
-                              child: Column(
-                                children: [
-                                  Icon(
-                                    Icons.menu,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    "Neuer Kunde",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                ],
+                                child: Column(
+                                  children: [
+                                     IconButton(
+                                          icon: Icon(
+                                            Icons.menu,
+                                            color: Colors.white,
+                                            size: 30,
+                                          ),
+                                          onPressed: (){
+                                            print("Menu aufgerufen");
+                                          }
+                                          ),
+                                  ],
+                                ),
                               ),
-                            ),
                             Container(
                               width: 80,
                             ),
                             Container(
                               child: Column(
                                 children: [
-                                  Icon(
-                                    Icons.account_circle,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    "Kunden",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                    ),
-                                  ),
+                                  IconButton(
+                                      icon: Icon(
+                                        Icons.sms,
+                                        color: Colors.white,
+                                        size: 30,
+                                      ),
+                                      onPressed: (){
+                                        _sendSMS("Guten Tag! Eine freundliche Erinnerung an Ihren Termin bei der Physiotherapie Naumann in 48h. MfG Isabelle", recipients);
+                                        print('SMS verschickt');
+                                      }),
                                 ],
                               ),
                             ),
@@ -398,5 +392,12 @@ class _homeScreenState extends State<homeScreen> {
   openNewCheckList() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => ExistingCustomer()));
+  }
+
+  void _sendSMS(String message, List<String> recipients) async {
+    String _result = await sendSMS(message: message, recipients: recipients).catchError((onError) {
+      print(onError);
+    });
+    print(_result);
   }
 }
