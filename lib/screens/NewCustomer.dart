@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:termin_manager/database_helper.dart';
 import 'package:termin_manager/models/customer.dart';
+import 'package:termin_manager/models/http_service.dart';
 import '../HomeScreen.dart';
 
 class NewCustomer extends StatelessWidget {
@@ -29,6 +30,8 @@ class _newCustomerState extends State<newCustomer> {
   String telefonnummer;
   String email;
 
+  final HttpService httpService = HttpService();
+  Future<Customer> _futureCustomer;
 
   @override
   Widget build(BuildContext context) {
@@ -90,12 +93,9 @@ class _newCustomerState extends State<newCustomer> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
-                        onSubmitted: (value){
-
+                        onSubmitted: (value) {
                           vorname = value;
-
                         },
-
                         controller: inputControllerVorname,
                         decoration: InputDecoration(
                             hintText: "Vorname", border: InputBorder.none),
@@ -109,11 +109,8 @@ class _newCustomerState extends State<newCustomer> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
-
-                        onSubmitted: (value){
-
+                        onSubmitted: (value) {
                           nachname = value;
-
                         },
                         controller: inputControllerNachname,
                         decoration: InputDecoration(
@@ -128,13 +125,9 @@ class _newCustomerState extends State<newCustomer> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
-
-                        onSubmitted: (value){
-
+                        onSubmitted: (value) {
                           telefonnummer = value;
-
                         },
-
                         controller: inputControllerNummer,
                         decoration: InputDecoration(
                             hintText: "Telefonnummer",
@@ -149,13 +142,9 @@ class _newCustomerState extends State<newCustomer> {
                       padding: EdgeInsets.all(10),
                       color: Colors.grey.withOpacity(0.2),
                       child: TextField(
-
-                        onSubmitted: (value){
-
+                        onSubmitted: (value) {
                           email = value;
-
                         },
-
                         controller: inputControllerEmail,
                         decoration: InputDecoration(
                             hintText: "E-Mail", border: InputBorder.none),
@@ -183,9 +172,7 @@ class _newCustomerState extends State<newCustomer> {
                             ),
                             child: InkWell(
                               onTap: () async {
-
-                                if(vorname != "" && nachname != ""){
-
+                                if (vorname != "" && nachname != "") {
                                   DatabaseHelper _dbHelper = DatabaseHelper();
                                   Customer _newCustomer = Customer(
                                     vorname: inputControllerVorname.text,
@@ -195,11 +182,15 @@ class _newCustomerState extends State<newCustomer> {
                                   );
                                   await _dbHelper.insertCustomer(_newCustomer);
                                   print('Kunde hinzugefügt');
-                                }
-                                else {
+
+                                  setState(() {
+                                    _futureCustomer =
+                                        httpService.createCustomer(
+                                            inputControllerVorname.text);
+                                  });
+                                } else {
                                   print("fehler");
                                 }
-
 
                                 print(
                                     "Kunde hinzugefügt. Vorname: ${inputControllerVorname.text}, Nachname: ${inputControllerNachname.text}, Telefonnummer ${inputControllerNummer.text}, Email: ${inputControllerEmail.text}");

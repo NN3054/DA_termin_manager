@@ -17,6 +17,7 @@ class NewMeeting extends StatelessWidget {
 
 class newMeeting extends StatefulWidget {
   final Meeting meeting;
+
   @required
   newMeeting({this.meeting});
 
@@ -214,7 +215,7 @@ class _newMeetingState extends State<newMeeting> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
-                    SizedBox(
+                    /*SizedBox(
                       height: 45,
                     ),
                     Container(
@@ -236,7 +237,7 @@ class _newMeetingState extends State<newMeeting> {
                     ),
                     SizedBox(
                       height: 20,
-                    ),
+                    ),*/
                     Container(
                       padding: EdgeInsets.all(15),
                       child: Column(
