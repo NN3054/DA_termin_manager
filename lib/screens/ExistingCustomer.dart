@@ -32,10 +32,10 @@ class _existingCustomerState extends State<existingCustomer> {
 
   Future<List<PostSearch>> search(String search) async {
     await Future.delayed(Duration(seconds: 2));
-    return List.generate(10, (int index) {
+    return List.generate(1, (int index) {
       return PostSearch(
-        "Vorname $index",
-        "Nachname $index",
+        "Max ",
+        "Mustermann",
       );
     });
   }
@@ -117,7 +117,7 @@ class _existingCustomerState extends State<existingCustomer> {
 
                 return Center(child: CircularProgressIndicator());
               },
-            ),*/
+            ),
             FutureBuilder(
                 future: _futureCustomer,
                 builder: (context, snapshot) {
@@ -127,7 +127,7 @@ class _existingCustomerState extends State<existingCustomer> {
                     return Text("${snapshot.error}");
                   }
                   return Center(child: CircularProgressIndicator());
-                })
+                })*/
           ],
         ),
       ),

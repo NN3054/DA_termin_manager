@@ -189,7 +189,7 @@ class _newCustomerState extends State<newCustomer> {
                                             inputControllerVorname.text);
                                   });
                                 } else {
-                                  print("fehler");
+                                  print("Error");
                                 }
 
                                 print(
