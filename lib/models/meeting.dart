@@ -14,4 +14,8 @@ class Meeting {
       'behandlungsart': behandlungsart,
     };
   }
+/*
+  static Future<Meeting> fromJson(jsonDecode) {}
+*/
 }
+

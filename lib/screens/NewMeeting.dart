@@ -3,6 +3,7 @@ import 'package:termin_manager/HomeScreen.dart';
 import 'package:termin_manager/models/MeetingWidget.dart';
 import 'package:termin_manager/database_helper.dart';
 import 'package:termin_manager/models/meeting.dart';
+import 'package:termin_manager/models/meetinghttp.dart';
 
 class NewMeeting extends StatelessWidget {
   @override
@@ -41,6 +42,8 @@ class _newMeetingState extends State<newMeeting> {
   String behandlungsart_submitted;
 
   int meetingId = 0;
+
+  Future<Meeting> _futureMeeting;
 
   Future<Null> selectStartTime(BuildContext context) async {
     picked_start = await showTimePicker(
@@ -319,6 +322,12 @@ class _newMeetingState extends State<newMeeting> {
                             ),
                             child: InkWell(
                               onTap: () async {
+                               /* setState(() {
+                                  _futureMeeting = createMeeting(inputControllerBehandlungsart.text, inputControllerVorname.text, inputControllerNachname.text);
+                                });*/
+
+
+
                                 if (vorname_submitted != "" &&
                                     nachname_submitted != "" &&
                                     behandlungsart_submitted != "") {

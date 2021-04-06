@@ -47,7 +47,8 @@ class _homeScreenState extends State<homeScreen> {
     "Dezember"
   ];
 
-  List<String> recipients = ["436503068488"];
+  List<String> recipients = ["436503068487"];
+
   CalendarController ctrlr = new CalendarController();
 
   @override
